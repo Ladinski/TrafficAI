@@ -12,8 +12,7 @@ from src.utils import save_finished_tracks_to_csv
 
 STREAM_URL = "https://s51.nysdot.skyvdn.com/rtplive/TA_035/chunklist_w728921246.m3u8"
 
-# Custom 4-point tracking zone
-# Edit these points to match the road shape
+
 ROI_POINTS = [
     (150, 110),  # top-left
     (190, 100),  # top-right
