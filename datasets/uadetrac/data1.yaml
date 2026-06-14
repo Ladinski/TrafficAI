@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 8
+names: ['0', '1', '2', '3', '4', '5', '6', '7']
+
+roboflow:
+  workspace: vejil28819-cadinr-com
+  project: traffic-vehicle-detection-4b4sb-p5k71
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/vejil28819-cadinr-com/traffic-vehicle-detection-4b4sb-p5k71/dataset/1

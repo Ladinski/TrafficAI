@@ -1,0 +1,9 @@
+path: datasets/uadetrac
+train: images/train
+val: images/val
+
+names:
+  0: car
+  1: bus
+  2: truck
+  3: van
