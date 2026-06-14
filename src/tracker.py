@@ -58,15 +58,15 @@ class Tracker:
         if current_time is None:
             current_time = datetime.now()
 
-        # Extract boxes and their centroids
+        
         det_boxes: List[Box] = [d["box"] for d in detections]
         det_centroids = [self._centroid(box) for box in det_boxes]
 
-        # Track assignment bookkeeping
+        
         unmatched_detections = set(range(len(det_boxes)))
         unmatched_tracks = set(self.active_tracks.keys())
 
-        # Greedy matching: for each track, find closest detection
+        
         for track_id, track in list(self.active_tracks.items()):
             track_centroid = self._centroid(track.box)
 
@@ -82,18 +82,17 @@ class Tracker:
                     best_det_idx = det_idx
 
             if best_det_idx is not None and best_distance <= self.max_distance:
-                # Match found: update track with this detection
+               
                 new_box = det_boxes[best_det_idx]
                 track.box = new_box
                 track.last_seen_time = current_time
                 track.missed_frames = 0
 
-                # bookkeeping: this detection and track are now matched
+                
                 unmatched_detections.discard(best_det_idx)
                 unmatched_tracks.discard(track_id)
-            # else: no match for this track in this frame
-
-        # Any unmatched detections become new tracks
+            
+       
         for det_idx in unmatched_detections:
             box = det_boxes[det_idx]
             new_track = CarTrack(
@@ -106,13 +105,13 @@ class Tracker:
             self.active_tracks[self.next_id] = new_track
             self.next_id += 1
 
-        # Any unmatched tracks might be gone -> increase missed_frames
+        
         for track_id in list(unmatched_tracks):
             track = self.active_tracks[track_id]
             track.missed_frames += 1
 
             if track.missed_frames > self.max_missed_frames:
-                # Considered gone: move to finished
+                
                 self.finished_tracks.append(track)
                 del self.active_tracks[track_id]
 
